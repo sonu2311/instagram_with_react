@@ -1,0 +1,112 @@
+.top_box {
+  border: solid #ccc 1px;
+  padding:  10px;
+  margin: 10px;
+}
+
+.link_box {
+  margin:  5px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+.link_box:hover {
+  background-color: #aaa;
+}
+
+body, button {
+    font-family: roboto;
+}
+.login_main_div {
+    border:solid #ccc 1px;  
+    border-radius: 3px;
+    box-shadow:2px 3px 5px #ccc; 
+    width: 300px;
+    margin: auto;
+    margin-top: 100px;
+    padding-bottom: 20px;
+}
+
+.login_header{
+    text-align: center; 
+    font-size: 20px; 
+    font-weight:700; 
+    /*color:#333; 
+    background-color:#b4b4b4; */
+    padding:9px 0px; 
+    background-color: #006666; 
+    border-color:#2e6da4; 
+    color:#fff;
+    border: 1px solid transparent;
+}
+.login_header_down_div{
+    margin:6px 0px;
+    box-sizing: border-box;
+    /*padding:5px;*/
+}
+.email_password_full_div{
+    padding:0px 10px; 
+    margin:15px 0px;
+}
+
+.email_password_name_div{
+    padding: 7px 0px; 
+    font-size: 15px;
+}
+
+.email_password_input_div{
+    padding: 5px 6px; 
+    width:265px;
+    outline: none;
+    border:solid #ccc 1px;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    
+}
+.email_password_input_div:hover{
+    box-shadow: 2px 3px 5px #ccc;
+}
+.login_button_div{
+    /*float:right; */
+    text-align: center;
+    margin-top:35px; margin-left:5px; padding:1px 8px;
+}
+.login_button{
+    background-color: #006666;
+    border-color: #2e6da4; 
+    color:#fff;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 25px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    outline: none;
+}
+.login_button:hover{
+    box-shadow: 2px 3px 5px #bbb;
+}
+
+
+.bigest_div{
+  /*padding: 70px 0px; */
+  margin-top: 5px;
+  padding-top:10px;
+  /*border:solid black 1px; */
+}
+.scroll_div{
+  /*border:solid green 1px; */
+  height: calc(100vh - 50px); 
+  overflow-y: scroll; 
+  position: fixed; top: 50px;
+}
