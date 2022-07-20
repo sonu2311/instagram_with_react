@@ -6,6 +6,7 @@ import Home from './home';
 
 import {Routes, Route, HashRouter} from "react-router-dom"
 import React from 'react';
+import ProfilePage from './profile_page';
 
 function MainFunc() {
   return (
@@ -17,6 +18,7 @@ function MainFunc() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup_url" element={<Signup/>} />
           <Route path="/home_url" element={<Home/>} />
+          <Route path="/profile/:id" element={<ProfilePage/>} />
           <Route path="*" element={<h1>Invalid</h1>} />
         </Route>
       </Routes>
