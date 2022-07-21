@@ -13,6 +13,7 @@ function Post({post}) {
   const [all_comment_list, setAll_comment_list] = React.useState([])
   const [comment_text, setComment_text] = React.useState("")
   const [num_comments, setNum_comments]= React.useState(post.num_comments)
+  const [isDeleted,  setIsDeleted] = React.useState(false)
 
   const menu_open_close = function(){
     setIs_menu_open(!is_menu_open)
@@ -66,8 +67,6 @@ function Post({post}) {
     })  
   }
 
-
-
   const comment_now=function(){
     api('/comment', { "comment_text":comment_text, "post_id":post.id}, function(backend_output){
       setAll_comment_list(backend_output.comment_list)
@@ -77,6 +76,20 @@ function Post({post}) {
     })
   }
 
+  const post_delete=function(){
+    api('/post_delete',{"post_id":post.id}, function(backend_output){
+      setIsDeleted(true)
+    });
+
+  }
+
+  if(isDeleted){
+    return (
+      <div style={{ color: '#666', marginBottom: '25px', borderRadius: '4px', padding: '20px', boxShadow: '2px 2px 5px #888888', backgroundColor: '#fff', fontSize: '25px'}}>
+        Post deleted
+      </div>
+    )
+  }
 
   return (
     <div style={{color: '#333', marginBottom: '25px', borderRadius: '4px', padding: '20px', boxShadow: '2px 2px 5px #888888', backgroundColor: '#fff'}}>
@@ -108,22 +121,22 @@ function Post({post}) {
             {/*  */}
             {is_menu_open && (
               <div className="post_menu">
-                  <div className="logout_div" style={{borderBottom: 'solid #ccc 1px'}}>
+                <div className="logout_div" style={{borderBottom: 'solid #ccc 1px'}}>
                   <div style={{}} className="hsplit" onClick={post_edit}>
                       <div style={{}}>
                       <span className="material-icons" style={{fontSize: '18px'}}>
                           edit_note
                       </span>
                       </div>
-                      <div style={{marginLeft: '5px', marginTop: '1px'}}>
+                      <div style={{marginLeft: '5px',marginTop:'1px'}}>
                       Edit
                       </div>
                   </div>
-                  </div>
-                  <div className="logout_div" ng-click="post_delete(post)">
+                </div>
+                <div className="logout_div" onClick={post_delete}>
                   <div style={{}} className="hsplit">
                       <div style={{}}>
-                      <span className="material-icons" style={{fontSize: '18px'}}>
+                      <span className="material-icons" style={{fontSize:'18px'}}>
                           delete_outline
                       </span>
                       </div>
@@ -131,7 +144,19 @@ function Post({post}) {
                       Delete
                       </div>
                   </div>
+                </div>
+                <div className="logout_div" style={{borderTop:"solid #ccc 1px"}}>
+                  <div style={{}} className="hsplit">
+                    <div style={{}}>
+                      <span className="material-icons" style={{fontSize: '18px'}}>
+                        outlined_flag
+                      </span>
+                    </div>
+                    <div style={{marginLeft: '5px', marginTop: '1px'}}>
+                      Report
+                    </div>
                   </div>
+                </div>
               </div>
               )
             }
@@ -141,17 +166,17 @@ function Post({post}) {
         {!is_edit && (
           <div style={{textAlign: 'justify', textJustify: 'inter-word', lineHeight: '1.6', fontSize: '14px'}}>
               {post_text.length != 0 && (
-                  <div style={{marginBottom: "10px"}}>
-                      {post_text}
-                  </div>
-                  )    
+                <div style={{marginBottom: "10px"}}>
+                  {post_text}
+                </div>
+                )    
               }
               {post.post_image.length != 0 && (
-                  <div style={{height: '250px', marginTop: '5px', textAlign: 'center', verticalAlign: 'middle'}}>
+                <div style={{height: '250px', marginTop: '5px', textAlign: 'center', verticalAlign: 'middle'}}>
                   <hr />
                   <img src={post.post_image} style={{maxHeight: '250px', maxWidth: '100%', verticalAlign: 'middle'}} />
-                  </div> 
-                  ) 
+                </div> 
+                ) 
               }
               <hr />
             </div>
@@ -283,13 +308,9 @@ function Post({post}) {
             </div>		
           </div>
         ))}
-
-
-
-
       </div>
     </div>
-  
+
   );
 }
 
