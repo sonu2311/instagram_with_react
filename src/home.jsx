@@ -3,6 +3,8 @@ import Post from './post';
 import React from 'react';
 import { api, useImmer} from './library';
 import {SessionContext} from './library';
+import {uploadImage} from './utils'
+
 
 
 function Followers(){
@@ -108,7 +110,6 @@ function AddNewPost({setList_of_all_posts}){
 		})
   }
 
-
   return (
     <>
       <div style={{margin: '25px'}}>
@@ -116,12 +117,19 @@ function AddNewPost({setList_of_all_posts}){
           <div style={{marginLeft: '20px', marginRight: '20px'}}>
             <div className="hsplit">
               <div style={{marginRight: '7px', width: '60%', marginBottom: '1px', textAlign: 'center'}}>
-                <span className="material-icons" style={{fontSize: '30px', marginTop: '20px', color: '#ccc'}} ng-if="post_image.length==0">
+                {post_image.length==0 && ( 
+                  <span className="material-icons" style={{fontSize: '30px', marginTop: '20px', color: '#ccc'}}>
                   photo_camera
-                </span>
+                  </span>
+                )}
+                {post_image.length > 0 && ( 
+                 <img height="100" src={post_image} />
+                )}
               </div>
               <div style={{width: '38%', marginTop: '20px'}}>
-                <input type="file" name="name" ng-model="image_file" id="image_file" className="input"/>
+
+                <input className="input" type="file" onChange={(e) => uploadImage(e.target.files[0], setPost_image)} />
+
               </div>
             </div>
           </div>

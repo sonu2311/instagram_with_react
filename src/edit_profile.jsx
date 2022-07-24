@@ -4,6 +4,8 @@ import "./main.css";
 import { SessionContext } from "./library";
 import { Header } from "./header";
 import {api} from './library';
+import {uploadImage} from './utils'
+
 
 function EditUserInfo(){
   const [email, setEmail]=React.useState("")
@@ -137,11 +139,8 @@ function EditUserInfo(){
                 <div style={{ width: "37%", marginTop: "7px" }}>
                   <input
                     type="file"
-                    name="name"
-                    ng-model="image_file"
-                    id="image_file"
                     className="input"
-                    onchange="angular.element(this).scope().upload_image()"
+                    onChange={(e) => uploadImage(e.target.files[0], setImage)}
                   />
                 </div>
               </div>
