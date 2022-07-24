@@ -1,6 +1,6 @@
 import React from 'react';
 import './library.css';
-import { api} from './library';
+import { api, SessionContext} from './library';
 
 function Post({post}) {
   const [is_menu_open, setIs_menu_open] = React.useState(false)
@@ -14,6 +14,8 @@ function Post({post}) {
   const [comment_text, setComment_text] = React.useState("")
   const [num_comments, setNum_comments]= React.useState(post.num_comments)
   const [isDeleted,  setIsDeleted] = React.useState(false)
+  const [session, setSession] = React.useContext(SessionContext)
+
 
   const menu_open_close = function(){
     setIs_menu_open(!is_menu_open)
@@ -56,8 +58,6 @@ function Post({post}) {
 
   const show_all_comments=function(){
     api('/show_all_comments', {"post_id":post.id}, function(backend_output){
-      console.log("backend======", backend_output )
-
       if("error" in backend_output) {
         alert(backend_output.error)
       }
@@ -71,7 +71,6 @@ function Post({post}) {
     api('/comment', { "comment_text":comment_text, "post_id":post.id}, function(backend_output){
       setAll_comment_list(backend_output.comment_list)
       setNum_comments(backend_output.comment_list.length)
-      console.log("backend_output======", backend_output)
       setComment_text("") 
     })
   }
@@ -121,30 +120,34 @@ function Post({post}) {
             {/*  */}
             {is_menu_open && (
               <div className="post_menu">
-                <div className="logout_div" style={{borderBottom: 'solid #ccc 1px'}}>
-                  <div style={{}} className="hsplit" onClick={post_edit}>
-                      <div style={{}}>
-                      <span className="material-icons" style={{fontSize: '18px'}}>
-                          edit_note
-                      </span>
-                      </div>
-                      <div style={{marginLeft: '5px',marginTop:'1px'}}>
-                      Edit
-                      </div>
+                {session.login_key.id == post.user_id && ( 
+                  <div className="logout_div" style={{borderBottom: 'solid #ccc 1px'}}>
+                    <div style={{}} className="hsplit" onClick={post_edit}>
+                        <div style={{}}>
+                        <span className="material-icons" style={{fontSize: '18px'}}>
+                            edit_note
+                        </span>
+                        </div>
+                        <div style={{marginLeft: '5px',marginTop:'1px'}}>
+                        Edit
+                        </div>
+                    </div>
                   </div>
-                </div>
-                <div className="logout_div" onClick={post_delete}>
-                  <div style={{}} className="hsplit">
-                      <div style={{}}>
-                      <span className="material-icons" style={{fontSize:'18px'}}>
-                          delete_outline
-                      </span>
-                      </div>
-                      <div style={{marginLeft: '5px', marginTop: '1px'}}>
-                      Delete
-                      </div>
+                )}
+                {session.login_key.id == post.user_id && (
+                  <div className="logout_div" onClick={post_delete}>
+                    <div style={{}} className="hsplit">
+                        <div style={{}}>
+                        <span className="material-icons" style={{fontSize:'18px'}}>
+                            delete_outline
+                        </span>
+                        </div>
+                        <div style={{marginLeft: '5px', marginTop: '1px'}}>
+                        Delete
+                        </div>
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className="logout_div" style={{borderTop:"solid #ccc 1px"}}>
                   <div style={{}} className="hsplit">
                     <div style={{}}>
@@ -158,8 +161,7 @@ function Post({post}) {
                   </div>
                 </div>
               </div>
-              )
-            }
+            )}
           </div>
         </div>
         <div style={{boxSizing: 'border-box'}}> 
@@ -180,8 +182,7 @@ function Post({post}) {
               }
               <hr />
             </div>
-            ) 
-        }
+        )}
         {is_edit && (
           <div>
             <div style={{boxSizing: 'border-box', width: 'calc(100% - 30px)'}}>

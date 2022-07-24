@@ -7,6 +7,8 @@ import Home from './home';
 import {Routes, Route, HashRouter} from "react-router-dom"
 import React from 'react';
 import ProfilePage from './profile_page';
+import { Header } from './header';
+import { EditProfile } from './edit_profile';
 
 function MainFunc() {
   return (
@@ -15,6 +17,8 @@ function MainFunc() {
         <Route >
           <Route path="/" element={<Example1 />} />
           <Route path="/example1" element={<Example1 />} />
+          <Route path="/header" element={<Header/>} />
+          <Route path="/edit_profile" element={<EditProfile/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup_url" element={<Signup/>} />
           <Route path="/home_url" element={<Home/>} />

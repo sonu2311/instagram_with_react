@@ -32,7 +32,7 @@ export const SessionContext = React.createContext()
 export function SessionProvider({children, defaultGlobalState}) {
   const [session, setSession] = React.useState(loadSession())
   return (
-    <SessionContext.Provider value={{session: session, setSession: setSession}} >
+    <SessionContext.Provider value={[session, setSession]}>
       {children}
     </SessionContext.Provider>
   );

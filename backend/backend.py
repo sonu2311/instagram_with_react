@@ -427,7 +427,7 @@ def update_password(frontend_dict, session):
 	print(frontend_dict)
 	frontend_dict["user_id"] = login_id(session)
 	if frontend_dict["new_password"] != frontend_dict["repeat_password"]:
-		return {"error": "youe password is different from repeat password"}
+		return {"error": "your password is different from repeat password"}
 	l=db.readQuery("select id from users where password = {old_password} AND id={user_id}", frontend_dict)
 	if len(l)==0:
 		return {"error":"old password is not correct"}
