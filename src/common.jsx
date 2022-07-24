@@ -1,4 +1,5 @@
 import Example1 from './example1';
+import Example2 from './example2';
 import Login from './login';
 import Signup from './singup';
 import Home from './home';
@@ -15,6 +16,7 @@ function MainFunc() {
         <Route >
           <Route path="/"element={<Home/>} />
           <Route path="/example1" element={<Example1 />} />
+          <Route path="/example2" element={<Example2 />} />
           <Route path="/header" element={<Header/>} />
           <Route path="/edit_profile" element={<EditProfile/>} />
           <Route path="/login" element={<Login/>} />
