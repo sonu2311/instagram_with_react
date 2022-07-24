@@ -10,8 +10,8 @@ import io
 
 backend = FlaskLib()
 
-if os.environ.get('FRESHMART_SONU_ENV') == 'mohit':
-	db = database.Database(dbname='instagram', user="mohit.saini", password="")
+if os.environ.get('SONU_BACKEND_ENV') == 'mohit':
+	pass
 else:
 	db = database.Database(dbname='instagram', user="sonu", password="sonu_pass")
 
@@ -437,12 +437,12 @@ def update_password(frontend_dict, session):
 @backend.api('/upload_image')
 def upload_image(frontend_dict, session):
 	v="data/image_"+str(int(time.time()))+"." + frontend_dict["filename"].split(".")[-1]
-	f = open(v , "wb")
+	f = open("../public/"+v , "wb")
 	print(len(frontend_dict["image_file_content"]))
 	r = urllib.request.urlopen(frontend_dict["image_file_content"])
 	f.write(r.file.read())
 	f.close()
-	return v
+	return {"uploaded_image_name": v}
 # ////////
 @backend.api('/my_name')
 def my_name(d):
