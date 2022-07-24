@@ -145,11 +145,11 @@ function AddNewPost({setList_of_all_posts}){
 }
 
 function Home() {
-  const x= {}
   const [list_of_all_posts, setList_of_all_posts] = useImmer([])
 
   React.useEffect(()=> {
     api("/all_posts", {}, function(backend_output){
+      
       setList_of_all_posts(backend_output.list_of_all_posts)
 
     })
