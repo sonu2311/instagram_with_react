@@ -97,6 +97,18 @@ function AddNewPost({setList_of_all_posts}){
 			setPost_image("")
 		})
   }
+
+  const add_new_post2 = function(){
+		api("/post", { post_text:post_text, post_image :post_image}, function(backend_output){
+      setList_of_all_posts(draft=>{
+        draft.unshift(backend_output.new_post)
+      })
+			setPost_text("")
+			setPost_image("")
+		})
+  }
+
+
   return (
     <>
       <div style={{margin: '25px'}}>
