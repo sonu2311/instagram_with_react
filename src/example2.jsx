@@ -4,50 +4,41 @@ import React from 'react';
 import {api} from './library';
 
 
-const T = React.memo(({id: {v: id}, f}) => {
-  console.log("T with id = ", id)
-  const [x, setX] = React.useState(id)
+const T = (function ({input}) {
+  console.log("T with input = ", input)
+  const [x, setX] = React.useState(input)
   return (
-    <div>Incoming id = {id}, x = {x}
-        <button onClick={f} >Call F</button>
+    <div>Incoming input = {input}, x = {x}
     </div>);
 })
 
-const P = React.memo(({id: {v: id}, f}) => {
-  console.log("P with id = ", id)
-  const [x, setX] = React.useState(id)
-  return <div>Incoming id = {id}, x = {x}</div>
+const P = (function ({input}) {
+  console.log("P with input = ", input)
+  const [x, setX] = React.useState(input)
+  return <div>Incoming input = {input}, x = {x}</div>
 })
 
 function Example2() {
-  const [y, setY] = React.useState({v: 0})
-  const [z, setZ] = React.useState({v: 0})
-
-  const IncrY = React.useCallback(function() {
-    setY({v: y.v+1});
-  }, [y])
-
-  const IncrZ = React.useCallback(function() {
-    setY({v: y.v+1});
-  }, [z])
+  const [y, setY] = React.useState(0)
+  const [z, setZ] = React.useState(0)
 
   return (<>
     <div >
       <h2>Example2</h2>
       <div>
-        y = {y.v}, z = {z.v}
+        y = {y}, z = {z}
       </div>
       <div>
-        <button onClick={() => setY({v: y.v+1})} >Incr Y</button>
-        <button onClick={() => setZ({v: z.v+1})} >Incr Z</button>
+        <button onClick={() => setY(y + 1)} >Incr Y</button>
+        <button onClick={() => setZ(z + 1)} >Incr Z</button>
       </div>
       <div>
-        Subcomponent T with id={y.v}:
-        <T id={y} f={IncrY} />
+        Subcomponent T with input={y}:
+        <T input={y} />
       </div>
       <div>
-        Subcomponent P with id={z.v}:
-        <P id={z} f={IncrZ} />
+        Subcomponent P with input={z}:
+        <P input={z} />
       </div>
     </div>
   </>
