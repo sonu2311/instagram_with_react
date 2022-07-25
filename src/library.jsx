@@ -31,8 +31,12 @@ export const SessionContext = React.createContext()
 
 export function SessionProvider({children, defaultGlobalState}) {
   const [session, setSession] = React.useState(loadSession())
+  const setSessionWrapper = function(value) {
+    setSession(value)
+    localStorage.session = JSON.stringify(value || g_session)
+  }
   return (
-    <SessionContext.Provider value={[session, setSession]}>
+    <SessionContext.Provider value={[session, setSessionWrapper]}>
       {children}
     </SessionContext.Provider>
   );
@@ -54,7 +58,8 @@ export function api(api_url, input, callback, failure_callback) {
   })
   .then(response => response.json())
   .then(function(backend_output) {
-    g_session = backend_output.session || g_session
+    backend_output.session = backend_output.session || g_session
+    g_session = backend_output.session
     localStorage.session = JSON.stringify(g_session)
     callback && callback(backend_output)
   })
